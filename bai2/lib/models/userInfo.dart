@@ -10,10 +10,10 @@ class UserInfo {
   DateTime? birthDate;
   AddressInfo? address;
   UserInfo({
-    this.name,
-    this.email,
-    this.phoneNumber,
-    this.birthDate,
+    required this.name,
+    required this.email,
+    required this.phoneNumber,
+    required this.birthDate,
     this.address,
   });
 
@@ -44,14 +44,31 @@ class UserInfo {
   }
 
   factory UserInfo.fromMap(Map<String, dynamic> map) {
+    var processedBirthDate = map['birthDate'];
+
+    if (processedBirthDate is int) {
+      // Chuyển đổi số nguyên thành DateTime
+      processedBirthDate =
+          DateTime.fromMillisecondsSinceEpoch(processedBirthDate).toUtc();
+    } else if (processedBirthDate is String) {
+      // Nếu 'birthDate' là chuỗi, chuyển đổi thành DateTime
+      processedBirthDate = DateTime.tryParse(processedBirthDate)?.toUtc();
+    }
+
+    var processedPhoneNumber = map['phoneNumber'];
+
+    if (processedPhoneNumber is int) {
+      // Nếu 'phoneNumber' là số nguyên, chuyển đổi thành chuỗi
+      processedPhoneNumber = processedPhoneNumber.toString();
+    }
+
     return UserInfo(
       name: map['name'] != null ? map['name'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
       phoneNumber:
-          map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
-      birthDate: map['birthDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['birthDate'] as int)
-          : null,
+          processedPhoneNumber != null ? processedPhoneNumber as String : null,
+      birthDate:
+          processedBirthDate != null ? processedBirthDate as DateTime : null,
       address: map['address'] != null
           ? AddressInfo.fromMap(map['address'] as Map<String, dynamic>)
           : null,

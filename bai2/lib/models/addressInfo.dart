@@ -41,7 +41,7 @@ class AddressInfo {
   }
 
   factory AddressInfo.fromMap(Map<String, dynamic> map) {
-    return AddressInfo(
+    final addressInfo = AddressInfo(
       province: map['province'] != null
           ? Province.fromMap(map['province'] as Map<String, dynamic>)
           : null,
@@ -53,6 +53,23 @@ class AddressInfo {
           : null,
       street: map['street'] != null ? map['street'] as String : null,
     );
+
+    // Kiểm tra và gán giá trị mặc định cho các thuộc tính bắt buộc nếu chúng là null
+    if (addressInfo.province == null) {
+      addressInfo.province = Province(name: '', level: '', id: '');
+    }
+
+    if (addressInfo.district == null) {
+      addressInfo.district =
+          District(name: '', level: '', id: '', provinceId: '');
+    }
+
+    if (addressInfo.ward == null) {
+      addressInfo.ward =
+          Ward(name: '', level: '', id: '', districtId: '', provinceId: '');
+    }
+
+    return addressInfo;
   }
 
   String toJson() => json.encode(toMap());

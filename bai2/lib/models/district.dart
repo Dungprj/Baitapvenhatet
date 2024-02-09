@@ -56,6 +56,10 @@ class District {
       );
     }
 
+    if ((map['provinceId'] as String).isEmpty) {
+      throw ArgumentError('provinceId cannot be empty.');
+    }
+
     return District(
       name: map['name'] as String,
       level: map['level'] as String,

@@ -11,8 +11,19 @@ void main() {
         "birthDate": 946684800000, // 2000-01-01
         "address": {
           "province": {"name": "Tỉnh A", "level": "Tỉnh", "id": "01"},
-          "district": {"name": "Quận A", "level": "Quận", "id": "001"},
-          "ward": {"name": "Phường A", "level": "Phường", "id": "00001"},
+          "district": {
+            "name": "Quận A",
+            "level": "Quận",
+            "id": "001",
+            "provinceId": "01"
+          },
+          "ward": {
+            "name": "Phường A",
+            "level": "Phường",
+            "id": "00001",
+            "provinceId": "01",
+            "districtId": "001"
+          },
           "street": "Đường A",
         },
       };

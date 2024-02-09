@@ -6,8 +6,19 @@ void main() {
     test('Tạo AddressInfo từ map với dữ liệu hợp lệ', () {
       final addressInfoData = {
         "province": {"name": "Tỉnh A", "level": "Tỉnh", "id": "01"},
-        "district": {"name": "Quận A", "level": "Quận", "id": "001"},
-        "ward": {"name": "Phường A", "level": "Phường", "id": "00001"},
+        "district": {
+          "name": "Quận A",
+          "level": "Quận",
+          "id": "001",
+          "provinceId": "01"
+        },
+        "ward": {
+          "name": "Phường A",
+          "level": "Phường",
+          "id": "00001",
+          "provinceId": "01",
+          "districtId": "001"
+        },
         "street": "Đường A",
       };
 
@@ -22,11 +33,14 @@ void main() {
       expect(addressInfo.district!.name, equals("Quận A"));
       expect(addressInfo.district!.level, equals("Quận"));
       expect(addressInfo.district!.id, equals("001"));
+      expect(addressInfo.district!.provinceId, equals("01"));
 
       expect(addressInfo.ward, isNotNull);
       expect(addressInfo.ward!.name, equals("Phường A"));
       expect(addressInfo.ward!.level, equals("Phường"));
       expect(addressInfo.ward!.id, equals("00001"));
+      expect(addressInfo.ward!.provinceId, equals("01"));
+      expect(addressInfo.ward!.districtId, equals("001"));
 
       expect(addressInfo.street, equals("Đường A"));
     });
@@ -45,8 +59,20 @@ void main() {
     test('Kiểm tra tính đúng đắn của thuộc tính "province"', () {
       final addressInfoData = {
         "province": {"name": "Tỉnh A", "level": "Tỉnh", "id": "01"},
-        "district": {"name": "Quận A", "level": "Quận", "id": "001"},
-        "ward": {"name": "Phường A", "level": "Phường", "id": "00001"},
+        "district": {
+          "name": "Quận A",
+          "level": "Quận",
+          "id": "001",
+          "provinceId":
+              "01", // Bổ sung trường provinceId để đảm bảo đầy đủ dữ liệu
+        },
+        "ward": {
+          "name": "Phường A",
+          "level": "Phường",
+          "id": "00001",
+          "provinceId": "01",
+          "districtId": "001"
+        },
         "street": "Đường A",
       };
 
@@ -56,6 +82,21 @@ void main() {
       expect(addressInfo.province!.name, equals("Tỉnh A"));
       expect(addressInfo.province!.level, equals("Tỉnh"));
       expect(addressInfo.province!.id, equals("01"));
+
+      expect(addressInfo.district, isNotNull);
+      expect(addressInfo.district!.name, equals("Quận A"));
+      expect(addressInfo.district!.level, equals("Quận"));
+      expect(addressInfo.district!.id, equals("001"));
+      expect(addressInfo.district!.provinceId, equals("01"));
+
+      expect(addressInfo.ward, isNotNull);
+      expect(addressInfo.ward!.name, equals("Phường A"));
+      expect(addressInfo.ward!.level, equals("Phường"));
+      expect(addressInfo.ward!.id, equals("00001"));
+      expect(addressInfo.ward!.provinceId, equals("01"));
+      expect(addressInfo.ward!.districtId, equals("001"));
+
+      expect(addressInfo.street, equals("Đường A"));
     });
 
     test(
