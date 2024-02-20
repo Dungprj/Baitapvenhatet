@@ -16,6 +16,12 @@ class UserInfo {
     required this.birthDate,
     this.address,
   });
+  UserInfo.withDefaults()
+      : name = '',
+        email = '',
+        phoneNumber = '',
+        birthDate = DateTime.now(),
+        address = AddressInfo();
 
   UserInfo copyWith({
     String? name,
