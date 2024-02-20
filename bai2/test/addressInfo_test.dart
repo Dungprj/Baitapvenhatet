@@ -1,5 +1,4 @@
-import 'package:bai1/models/AddressInfo.dart';
-import 'package:flutter_test/flutter_test.dart';
+import '../lib/models/addressInfo.dart';
 
 void main() {
   group('AddressInfo Tests', () {
